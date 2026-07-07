@@ -50,11 +50,18 @@ export function TopNav({ items }: { items: NavItem[] }) {
 
   return (
     <header className="top-nav">
-      <a className="brand-mark" href="#n-top" onClick={(event) => {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }}>
-        M. Sandur<span>.</span>
+      <a
+        className="brand-mark"
+        href="#n-top"
+        onClick={(event) => {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        <img src="/icons/icon-180.png" alt="" width="34" height="34" />
+        <span className="brand-label">
+          M. Sandur<span>.</span>
+        </span>
       </a>
       <nav aria-label="Primary navigation">
         {items.map((item) => (

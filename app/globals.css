@@ -90,13 +90,28 @@ a:focus-visible {
 }
 
 .brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   flex: 0 0 auto;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
-.brand-mark span {
+.brand-mark img {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(200, 240, 74, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.brand-label {
+  display: inline-flex;
+}
+
+.brand-label span {
   color: var(--accent);
 }
 
