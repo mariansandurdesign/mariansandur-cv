@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 const profile = {
   name: "Marian Sandur",
-  email: "mariansandur11@gmail.com",
+  email: "mariansandurdesign@protonmail.com",
   location: "Torino, IT",
   linkedin: "https://www.linkedin.com/in/marian-sandur-74853718a",
   website: "https://mariansandurdesign.com",
