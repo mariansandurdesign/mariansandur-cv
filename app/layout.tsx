@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s"
   },
   description:
-    "Marian Sandur's CV - frontend engineer building fast, accessible web experiences and AI-powered interfaces.",
+    "CV di Marian Sandur, frontend engineer specializzato in esperienze web veloci, accessibili e interfacce AI.",
   icons: {
     icon: [
       { url: "/icons/favicon-16.png", sizes: "16x16", type: "image/png" },
@@ -50,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html lang="it" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );

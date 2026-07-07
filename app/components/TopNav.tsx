@@ -7,7 +7,14 @@ type NavItem = {
   label: string;
 };
 
-export function TopNav({ items }: { items: NavItem[] }) {
+type TopNavProps = {
+  items: NavItem[];
+  locale: string;
+  alternateLocale: string;
+  alternateLabel: string;
+};
+
+export function TopNav({ items, locale, alternateLocale, alternateLabel }: TopNavProps) {
   const [activeId, setActiveId] = useState(items[0]?.id);
 
   useEffect(() => {
@@ -52,7 +59,7 @@ export function TopNav({ items }: { items: NavItem[] }) {
     <header className="top-nav">
       <a
         className="brand-mark"
-        href="#n-top"
+        href={`/${locale}#n-top`}
         onClick={(event) => {
           event.preventDefault();
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -66,7 +73,7 @@ export function TopNav({ items }: { items: NavItem[] }) {
       <nav aria-label="Primary navigation">
         {items.map((item) => (
           <a
-            href={`#${item.id}`}
+            href={`/${locale}#${item.id}`}
             key={item.id}
             aria-current={activeId === item.id ? "page" : undefined}
             onClick={(event) => {
@@ -77,6 +84,9 @@ export function TopNav({ items }: { items: NavItem[] }) {
             {item.label}
           </a>
         ))}
+        <a className="language-switcher" href={`/${alternateLocale}`} aria-label={`Switch to ${alternateLabel}`}>
+          {alternateLabel}
+        </a>
       </nav>
     </header>
   );
