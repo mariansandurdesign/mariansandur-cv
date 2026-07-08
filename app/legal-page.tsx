@@ -1,40 +1,26 @@
-import { notFound } from "next/navigation";
-import { legalCopy } from "../legal";
-import { isLocale, profile, type Locale } from "../seo";
+import { legalCopy } from "./legal";
+import { profile } from "./seo";
 
 type LegalKind = "privacy" | "cookies";
 
-export async function LegalPage({
-  params,
+export function LegalPage({
   kind
 }: {
-  params: Promise<{ locale: string }>;
   kind: LegalKind;
 }) {
-  const { locale } = await params;
-
-  if (!isLocale(locale)) {
-    notFound();
-  }
-
-  const alternateLocale: Locale = locale === "it" ? "en" : "it";
-  const pageCopy = legalCopy[locale][kind];
-  const sharedCopy = legalCopy[locale];
+  const pageCopy = legalCopy[kind];
 
   return (
     <>
       <header className="top-nav legal-top-nav">
-        <a className="brand-mark" href={`/${locale}`}>
+        <a className="brand-mark" href="/">
           <img src="/icons/icon-180.png" alt="" width="34" height="34" />
           <span className="brand-label">
             M. Sandur<span>.</span>
           </span>
         </a>
         <nav aria-label="Legal navigation">
-          <a href={`/${locale}`}>{sharedCopy.backLabel}</a>
-          <a className="language-switcher" href={`/${alternateLocale}/${kind}`}>
-            {alternateLocale.toUpperCase()}
-          </a>
+          <a href="/">{legalCopy.backLabel}</a>
         </nav>
       </header>
 

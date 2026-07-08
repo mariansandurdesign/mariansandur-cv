@@ -136,25 +136,6 @@ a:focus-visible {
   color: var(--accent);
 }
 
-.language-switcher {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 38px;
-  min-height: 30px;
-  padding: 0 10px;
-  border: 1px solid rgba(200, 240, 74, 0.24);
-  border-radius: 999px;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.top-nav nav .language-switcher:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(200, 240, 74, 0.08);
-}
-
 .site-frame {
   width: min(100%, var(--max-width));
   margin: 0 auto;

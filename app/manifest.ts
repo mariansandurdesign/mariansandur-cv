@@ -10,9 +10,9 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Marian Sandur's CV - frontend engineer building fast, accessible web experiences and AI-powered interfaces.",
     id: siteUrl,
-    start_url: "/it",
+    start_url: "/",
     scope: "/",
-    lang: "it",
+    lang: "en",
     dir: "ltr",
     display: "standalone",
     background_color: "#0b0b0c",

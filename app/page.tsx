@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { TopNav } from "../components/TopNav";
-import { absoluteUrl, isLocale, locales, profile, seoKeywords, type Locale } from "../seo";
+import { TopNav } from "./components/TopNav";
+import { absoluteUrl, profile, seoKeywords } from "./seo";
 
 export const dynamic = "force-static";
 
@@ -26,7 +25,6 @@ type SkillGroup = {
 };
 
 type Copy = {
-  locale: Locale;
   metaTitle: string;
   metaDescription: string;
   skip: string;
@@ -114,292 +112,143 @@ const sharedSkillGroups: SkillGroup[] = [
   }
 ];
 
-const copy: Record<Locale, Copy> = {
-  it: {
-    locale: "it",
-    metaTitle: `${profile.name} - Frontend Engineer`,
-    metaDescription:
-      "CV di Marian Sandur, frontend engineer specializzato in esperienze web veloci, accessibili e interfacce AI.",
-    skip: "Vai al contenuto",
-    nav: [
-      { id: "n-about", label: "profilo" },
-      { id: "n-work", label: "lavoro" },
-      { id: "n-education", label: "formazione" },
-      { id: "n-projects", label: "progetti" },
-      { id: "n-skills", label: "skill" },
-      { id: "n-contact", label: "contatti" }
-    ],
-    heroKicker: `// FRONTEND ENGINEER - ${profile.location.toUpperCase()}`,
-    intro:
-      "Costruisco esperienze web veloci, accessibili e centrate sulle persone con framework moderni - dalle interfacce AI alle architetture offline-first.",
-    emailCta: "Scrivimi",
-    aboutTitle: "ABOUT",
-    aboutLeadPrefix:
-      "Frontend Engineer con passione per lo sviluppo e grande attenzione al design centrato sull'utente. Lavoro su tutto lo stack - ",
-    aboutLeadAccent: "React, Next.js, Angular, TypeScript",
-    aboutLeadSuffix: " sul frontend, Node.js, Python e PHP con database SQL/NoSQL sul backend.",
-    aboutCopy: [
-      "Integro API e servizi di terze parti, gestisco stato e performance su applicazioni complesse e applico buone pratiche di sicurezza per proteggere prodotti e dati degli utenti.",
-      "Negli ultimi progetti mi sono concentrato sull'AI engineering: interfacce conversazionali basate su large language model, pipeline RAG con vector store, agenti e tool-calling per rendere le funzionalita intelligenti rapide, affidabili e davvero utili. Mi interessa tutto il percorso: dal prompt al pixel."
-    ],
-    stats: [
-      { value: "7+", label: "ANNI DI SVILUPPO" },
-      { value: "20+", label: "TECNOLOGIE" },
-      { value: "3", label: "RUOLI ATTUALI" }
-    ],
-    sectionTitles: {
-      work: "LAVORO",
-      education: "FORMAZIONE",
-      projects: "PROGETTI",
-      skills: "SKILL",
-      contact: "CONTATTI"
-    },
-    focus: {
-      title: "AI Engineer",
-      company: "Blu Pantheon",
-      badge: "FOCUS ATTUALE",
-      period: "gen 2026 -> OGGI / Lecco / Remote",
-      body:
-        "Realizzo funzionalita AI in produzione end to end: progetto interfacce conversazionali basate su LLM e i sistemi che le supportano. Architetto pipeline RAG con vector search, lavoro su prompt e guardrail robusti, orchestration di agenti multi-step e tool-calling, poi porto tutto in esperienze React rapide e accessibili.",
-      tags: ["LLMs / GPT", "RAG", "LangChain", "Vector DBs / FAISS", "Agents & Tools"]
-    },
-    work: [
-      {
-        company: "Blu Pantheon",
-        role: "Frontend Engineer",
-        period: "feb 2025 -> OGGI",
-        body:
-          "Progetto e sviluppo interfacce dinamiche per chatbot AI-driven con React, TypeScript e Next.js. Integro API OpenAI/GPT e modelli custom per interazioni real-time, gestione stato Redux, animazioni e layout adattivi.",
-        tags: ["React", "Next.js", "TypeScript", "OpenAI / LangChain"]
-      },
-      {
-        company: "Surge-X",
-        role: "Frontend Engineer",
-        period: "giu 2024 -> OGGI",
-        body:
-          "Redesign della UI principale con componenti riutilizzabili e interattivi. Ridefinizione dell'architettura applicativa intorno a gestione dati offline e sincronizzazione, con forte attenzione alla user experience."
-      },
-      {
-        company: "Blu.it Srl",
-        role: "Lead Frontend Engineer",
-        period: "apr 2024 -> OGGI",
-        body:
-          "Lead frontend su progetti nuovi e rebuild. Integrazione di API RESTful e gestione dello stato con React e Next.js, ottimizzando efficienza del codice e tempi di caricamento."
-      },
-      {
-        company: "RPCTech s.r.l.",
-        role: "Frontend Engineer",
-        period: "ott 2022 -> ott 2023",
-        body:
-          "Frontend Engineer per Autorita di Bacino Fiume Po: traduzione del design in codice elegante, compatibilita cross-browser e interfacce funzionali e curate."
-      },
-      {
-        company: "Certimeter Group",
-        role: "React / Angular Developer",
-        period: "mag 2021 -> ott 2022",
-        body:
-          "Sviluppo React e consulenza presso GATELAB / Euronext. Inizio come Angular Developer lavorando con Angular e Spring."
-      },
-      {
-        company: "CDC / Gruppo Affidea",
-        role: "IT Consultant",
-        period: "mag 2019 -> dic 2019",
-        body:
-          "Consulenza infrastrutturale con il reparto IT: definizione del perimetro dispositivi, identificazione di minacce cybersecurity, configurazione e manutenzione dei device di lavoro."
-      }
-    ],
-    education: {
-      school: "Universita di Torino",
-      period: "2017 -> 2022",
-      body: "Dipartimento di Informatica - Laurea Triennale in Informatica."
-    },
-    projects: [
-      {
-        title: "AI Conversational UI",
-        body: "Chatbot real-time con React + OpenAI/LangChain e retrieval FAISS."
-      },
-      {
-        title: "Offline-First Sync",
-        body: "Ri-architettura di una product app per gestione dati offline e sincronizzazione robusta."
-      },
-      {
-        title: "Autorita Fiume Po",
-        body: "Applicazione web public-sector focalizzata su UI accessibile e funzionale."
-      },
-      {
-        title: "GATELAB / Euronext",
-        body: "Consulenza React / Angular per tooling legato a piattaforme di trading."
-      }
-    ],
-    skillsLeadPrefix: "Toolkit full-stack orientato a ",
-    skillsLeadAccentOne: "frontend moderno",
-    skillsLeadMiddle: " e ",
-    skillsLeadAccentTwo: "AI applicata",
-    skillsLeadSuffix: " - con basi backend e data per spedire prodotti completi.",
-    skillGroups: sharedSkillGroups,
-    contactHeadline: (
-      <>
-        Costruiamo
-        <br />
-        qualcosa.
-      </>
-    ),
-    legal: {
-      notice: "Nessun tracking: questo sito non usa analytics, advertising cookie o profilazione.",
-      privacyLabel: "Privacy Policy",
-      cookiesLabel: "Cookie Policy"
-    },
-    copyright: "© 2026 Marian Sandur - Torino, IT"
+const pageCopy: Copy = {
+  metaTitle: `${profile.name} - Frontend Engineer`,
+  metaDescription:
+    "Marian Sandur's CV - frontend engineer building fast, accessible web experiences and AI-powered interfaces.",
+  skip: "Skip to content",
+  nav: [
+    { id: "n-about", label: "about" },
+    { id: "n-work", label: "work" },
+    { id: "n-education", label: "education" },
+    { id: "n-projects", label: "projects" },
+    { id: "n-skills", label: "skills" },
+    { id: "n-contact", label: "contact" }
+  ],
+  heroKicker: `// FRONTEND ENGINEER - ${profile.location.toUpperCase()}`,
+  intro:
+    "Building fast, accessible, user-centric web experiences with modern frameworks - from AI-driven interfaces to offline-first architectures.",
+  emailCta: "Email me",
+  aboutTitle: "ABOUT",
+  aboutLeadPrefix: "A Frontend Engineer with a passion for development and a keen eye for user-centric design. Proficient across the stack - ",
+  aboutLeadAccent: "React, Next.js, Angular, TypeScript",
+  aboutLeadSuffix: " on the front, Node.js, Python and PHP with SQL/NoSQL databases on the back.",
+  aboutCopy: [
+    "Comfortable integrating APIs and third-party services, managing state and performance at scale, and applying security best practices to keep applications and user data safe.",
+    "Most recently focused on AI engineering - designing conversational interfaces powered by large language models, wiring up retrieval-augmented generation with vector stores, and orchestrating agents and tool-calling so intelligent features feel fast, reliable and genuinely useful. I care about the whole path from prompt to pixel."
+  ],
+  stats: [
+    { value: "7+", label: "YEARS BUILDING" },
+    { value: "20+", label: "TECHNOLOGIES" },
+    { value: "3", label: "CURRENT ROLES" }
+  ],
+  sectionTitles: {
+    work: "WORK",
+    education: "EDUCATION",
+    projects: "PROJECTS",
+    skills: "SKILLS",
+    contact: "CONTACT"
   },
-  en: {
-    locale: "en",
-    metaTitle: `${profile.name} - Frontend Engineer`,
-    metaDescription:
-      "Marian Sandur's CV - frontend engineer building fast, accessible web experiences and AI-powered interfaces.",
-    skip: "Skip to content",
-    nav: [
-      { id: "n-about", label: "about" },
-      { id: "n-work", label: "work" },
-      { id: "n-education", label: "education" },
-      { id: "n-projects", label: "projects" },
-      { id: "n-skills", label: "skills" },
-      { id: "n-contact", label: "contact" }
-    ],
-    heroKicker: `// FRONTEND ENGINEER - ${profile.location.toUpperCase()}`,
-    intro:
-      "Building fast, accessible, user-centric web experiences with modern frameworks - from AI-driven interfaces to offline-first architectures.",
-    emailCta: "Email me",
-    aboutTitle: "ABOUT",
-    aboutLeadPrefix: "A Frontend Engineer with a passion for development and a keen eye for user-centric design. Proficient across the stack - ",
-    aboutLeadAccent: "React, Next.js, Angular, TypeScript",
-    aboutLeadSuffix: " on the front, Node.js, Python and PHP with SQL/NoSQL databases on the back.",
-    aboutCopy: [
-      "Comfortable integrating APIs and third-party services, managing state and performance at scale, and applying security best practices to keep applications and user data safe.",
-      "Most recently focused on AI engineering - designing conversational interfaces powered by large language models, wiring up retrieval-augmented generation with vector stores, and orchestrating agents and tool-calling so intelligent features feel fast, reliable and genuinely useful. I care about the whole path from prompt to pixel."
-    ],
-    stats: [
-      { value: "7+", label: "YEARS BUILDING" },
-      { value: "20+", label: "TECHNOLOGIES" },
-      { value: "3", label: "CURRENT ROLES" }
-    ],
-    sectionTitles: {
-      work: "WORK",
-      education: "EDUCATION",
-      projects: "PROJECTS",
-      skills: "SKILLS",
-      contact: "CONTACT"
-    },
-    focus: {
-      title: "AI Engineer",
+  focus: {
+    title: "AI Engineer",
+    company: "Blu Pantheon",
+    badge: "CURRENT FOCUS",
+    period: "Jan 2026 -> NOW / Lecco / Remote",
+    body:
+      "Building production AI features end to end: designing conversational, LLM-powered interfaces and the systems behind them. I architect retrieval-augmented generation pipelines with vector search, engineer robust prompts and guardrails, and orchestrate multi-step agents and tool-calling - then ship them as fast, accessible React experiences.",
+    tags: ["LLMs / GPT", "RAG", "LangChain", "Vector DBs / FAISS", "Agents & Tools"]
+  },
+  work: [
+    {
       company: "Blu Pantheon",
-      badge: "CURRENT FOCUS",
-      period: "gen 2026 -> NOW / Lecco / Remote",
+      role: "Frontend Engineer",
+      period: "Feb 2025 -> NOW",
       body:
-        "Building production AI features end to end: designing conversational, LLM-powered interfaces and the systems behind them. I architect retrieval-augmented generation pipelines with vector search, engineer robust prompts and guardrails, and orchestrate multi-step agents and tool-calling - then ship them as fast, accessible React experiences.",
-      tags: ["LLMs / GPT", "RAG", "LangChain", "Vector DBs / FAISS", "Agents & Tools"]
+        "Designing and building dynamic interfaces for AI-driven chatbots with React, TypeScript and Next.js. Integrated OpenAI/GPT APIs and custom models for real-time interactions; Redux state, animations and adaptive layouts.",
+      tags: ["React", "Next.js", "TypeScript", "OpenAI / LangChain"]
     },
-    work: [
-      {
-        company: "Blu Pantheon",
-        role: "Frontend Engineer",
-        period: "feb 2025 -> NOW",
-        body:
-          "Designing and building dynamic interfaces for AI-driven chatbots with React, TypeScript and Next.js. Integrated OpenAI/GPT APIs and custom models for real-time interactions; Redux state, animations and adaptive layouts.",
-        tags: ["React", "Next.js", "TypeScript", "OpenAI / LangChain"]
-      },
-      {
-        company: "Surge-X",
-        role: "Frontend Engineer",
-        period: "giu 2024 -> NOW",
-        body:
-          "Redesigning the main product UI with reusable, interactive components. Redefining the app architecture around offline data handling and syncing while improving the overall user experience. London-based."
-      },
-      {
-        company: "Blu.it Srl",
-        role: "Lead Frontend Engineer",
-        period: "apr 2024 -> NOW",
-        body:
-          "Lead on a series of projects - new builds and rebuilds. Integrated RESTful APIs and managed state with React and Next.js, optimizing code efficiency and load times."
-      },
-      {
-        company: "RPCTech s.r.l.",
-        role: "Frontend Engineer",
-        period: "ott 2022 -> ott 2023",
-        body:
-          "Frontend Engineer for Autorita di Bacino Fiume Po - translating design into elegant code, ensuring cross-browser compatibility and delivering functional, appealing interfaces."
-      },
-      {
-        company: "Certimeter Group",
-        role: "React / Angular Developer",
-        period: "mag 2021 -> ott 2022",
-        body:
-          "React development including consultancy at GATELAB / Euronext. Started as an Angular Developer working with the Angular framework and Spring."
-      },
-      {
-        company: "CDC / Gruppo Affidea",
-        role: "IT Consultant",
-        period: "mag 2019 -> dic 2019",
-        body:
-          "Infrastructure consultancy with the IT department: defined the device perimeter, identified cybersecurity threats, and set up and maintained working devices."
-      }
-    ],
-    education: {
-      school: "Universita di Torino",
-      period: "2017 -> 2022",
-      body: "Dipartimento di Informatica - Laurea Triennale in Informatica (Bachelor's in Computer Science)."
+    {
+      company: "Surge-X",
+      role: "Frontend Engineer",
+      period: "Jun 2024 -> NOW",
+      body:
+        "Redesigning the main product UI with reusable, interactive components. Redefining the app architecture around offline data handling and syncing while improving the overall user experience. London-based."
     },
-    projects: [
-      {
-        title: "AI Conversational UI",
-        body: "Real-time chatbot on React + OpenAI/LangChain with FAISS retrieval."
-      },
-      {
-        title: "Offline-First Sync",
-        body: "Re-architected a product app for robust offline data handling and sync."
-      },
-      {
-        title: "Autorita Fiume Po",
-        body: "Public-sector web app focused on accessible, functional UI."
-      },
-      {
-        title: "GATELAB / Euronext",
-        body: "React / Angular consultancy for trading-platform tooling."
-      }
-    ],
-    skillsLeadPrefix: "A full-stack toolkit weighted toward ",
-    skillsLeadAccentOne: "modern frontend",
-    skillsLeadMiddle: " and ",
-    skillsLeadAccentTwo: "applied AI",
-    skillsLeadSuffix: " - with the backend and data foundations to ship complete products.",
-    skillGroups: sharedSkillGroups,
-    contactHeadline: (
-      <>
-        Let&apos;s build
-        <br />
-        something.
-      </>
-    ),
-    legal: {
-      notice: "No tracking: this site does not use analytics, advertising cookies or profiling.",
-      privacyLabel: "Privacy Policy",
-      cookiesLabel: "Cookie Policy"
+    {
+      company: "Blu.it Srl",
+      role: "Lead Frontend Engineer",
+      period: "Apr 2024 -> NOW",
+      body:
+        "Lead on a series of projects - new builds and rebuilds. Integrated RESTful APIs and managed state with React and Next.js, optimizing code efficiency and load times."
     },
-    copyright: "© 2026 Marian Sandur - Torino, IT"
-  }
+    {
+      company: "RPCTech s.r.l.",
+      role: "Frontend Engineer",
+      period: "Oct 2022 -> Oct 2023",
+      body:
+        "Frontend Engineer for Autorita di Bacino Fiume Po - translating design into elegant code, ensuring cross-browser compatibility and delivering functional, appealing interfaces."
+    },
+    {
+      company: "Certimeter Group",
+      role: "React / Angular Developer",
+      period: "May 2021 -> Oct 2022",
+      body:
+        "React development including consultancy at GATELAB / Euronext. Started as an Angular Developer working with the Angular framework and Spring."
+    },
+    {
+      company: "CDC / Gruppo Affidea",
+      role: "IT Consultant",
+      period: "May 2019 -> Dec 2019",
+      body:
+        "Infrastructure consultancy with the IT department: defined the device perimeter, identified cybersecurity threats, and set up and maintained working devices."
+    }
+  ],
+  education: {
+    school: "University of Turin",
+    period: "2017 -> 2022",
+    body: "Department of Computer Science - Bachelor's in Computer Science."
+  },
+  projects: [
+    {
+      title: "AI Conversational UI",
+      body: "Real-time chatbot on React + OpenAI/LangChain with FAISS retrieval."
+    },
+    {
+      title: "Offline-First Sync",
+      body: "Re-architected a product app for robust offline data handling and sync."
+    },
+    {
+      title: "Autorita Fiume Po",
+      body: "Public-sector web app focused on accessible, functional UI."
+    },
+    {
+      title: "GATELAB / Euronext",
+      body: "React / Angular consultancy for trading-platform tooling."
+    }
+  ],
+  skillsLeadPrefix: "A full-stack toolkit weighted toward ",
+  skillsLeadAccentOne: "modern frontend",
+  skillsLeadMiddle: " and ",
+  skillsLeadAccentTwo: "applied AI",
+  skillsLeadSuffix: " - with the backend and data foundations to ship complete products.",
+  skillGroups: sharedSkillGroups,
+  contactHeadline: (
+    <>
+      Let&apos;s build
+      <br />
+      something.
+    </>
+  ),
+  legal: {
+    notice: "No tracking: this site does not use analytics, advertising cookies or profiling.",
+    privacyLabel: "Privacy Policy",
+    cookiesLabel: "Cookie Policy"
+  },
+  copyright: "© 2026 Marian Sandur - Torino, IT"
 };
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-
-export async function generateMetadata({
-  params
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const pageCopy = isLocale(locale) ? copy[locale] : copy.it;
-  const canonical = `/${pageCopy.locale}`;
+export function generateMetadata(): Metadata {
+  const canonical = "/";
   const image = {
     url: profile.image,
     width: 512,
@@ -417,12 +266,7 @@ export async function generateMetadata({
     category: "portfolio",
     keywords: seoKeywords,
     alternates: {
-      canonical,
-      languages: {
-        it: "/it",
-        en: "/en",
-        "x-default": "/it"
-      }
+      canonical
     },
     robots: {
       index: true,
@@ -439,8 +283,7 @@ export async function generateMetadata({
       title: pageCopy.metaTitle,
       description: pageCopy.metaDescription,
       type: "profile",
-      locale: pageCopy.locale === "it" ? "it_IT" : "en_US",
-      alternateLocale: pageCopy.locale === "it" ? "en_US" : "it_IT",
+      locale: "en_US",
       url: canonical,
       siteName: "Marian Sandur CV",
       images: [image],
@@ -456,20 +299,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocalizedHome({
-  params
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  if (!isLocale(locale)) {
-    notFound();
-  }
-
-  const pageCopy = copy[locale];
-  const alternateLocale = locale === "it" ? "en" : "it";
-  const structuredData = createStructuredData(locale, pageCopy);
+export default function Home() {
+  const structuredData = createStructuredData(pageCopy);
 
   return (
     <>
@@ -482,12 +313,7 @@ export default async function LocalizedHome({
       <a className="skip-link" href="#n-about">
         {pageCopy.skip}
       </a>
-      <TopNav
-        items={pageCopy.nav}
-        locale={locale}
-        alternateLocale={alternateLocale}
-        alternateLabel={alternateLocale.toUpperCase()}
-      />
+      <TopNav items={pageCopy.nav} />
 
       <main className="site-frame">
         <section className="hero-section" id="n-top">
@@ -624,8 +450,8 @@ export default async function LocalizedHome({
           <div className="privacy-note">
             <p>{pageCopy.legal.notice}</p>
             <div className="legal-links">
-              <a href={`/${locale}/privacy`}>{pageCopy.legal.privacyLabel}</a>
-              <a href={`/${locale}/cookies`}>{pageCopy.legal.cookiesLabel}</a>
+              <a href="/privacy">{pageCopy.legal.privacyLabel}</a>
+              <a href="/cookies">{pageCopy.legal.cookiesLabel}</a>
             </div>
           </div>
           <p className="mono copyright">{pageCopy.copyright}</p>
@@ -635,8 +461,8 @@ export default async function LocalizedHome({
   );
 }
 
-function createStructuredData(locale: Locale, pageCopy: Copy) {
-  const pageUrl = absoluteUrl(`/${locale}`);
+function createStructuredData(pageCopy: Copy) {
+  const pageUrl = absoluteUrl("/");
   const allSkills = Array.from(new Set(sharedSkillGroups.flatMap((group) => group.skills)));
   const currentWorksFor = [
     {
@@ -685,7 +511,7 @@ function createStructuredData(locale: Locale, pageCopy: Copy) {
         url: pageUrl,
         name: pageCopy.metaTitle,
         description: pageCopy.metaDescription,
-        inLanguage: locale,
+        inLanguage: "en",
         dateModified: "2026-07-08",
         primaryImageOfPage: {
           "@type": "ImageObject",
@@ -702,7 +528,7 @@ function createStructuredData(locale: Locale, pageCopy: Copy) {
         "@id": `${absoluteUrl("/")}#website`,
         url: absoluteUrl("/"),
         name: "Marian Sandur CV",
-        inLanguage: ["it", "en"],
+        inLanguage: "en",
         publisher: {
           "@id": `${pageUrl}#person`
         }
