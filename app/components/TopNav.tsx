@@ -65,7 +65,6 @@ export function TopNav({ items, locale, alternateLocale, alternateLabel }: TopNa
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
-        <img src="/icons/icon-180.png" alt="" width="34" height="34" />
         <span className="brand-label">
           M. Sandur<span>.</span>
         </span>
