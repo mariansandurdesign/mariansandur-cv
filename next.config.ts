@@ -6,33 +6,23 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/it",
+        source: "/it/:path*",
+        destination: "/:path*",
+        permanent: true
+      },
+      {
+        source: "/en/:path*",
+        destination: "/:path*",
+        permanent: true
+      },
+      {
+        source: "/it/",
         destination: "/",
         permanent: true
       },
       {
-        source: "/en",
+        source: "/en/",
         destination: "/",
-        permanent: true
-      },
-      {
-        source: "/it/privacy",
-        destination: "/privacy",
-        permanent: true
-      },
-      {
-        source: "/en/privacy",
-        destination: "/privacy",
-        permanent: true
-      },
-      {
-        source: "/it/cookies",
-        destination: "/cookies",
-        permanent: true
-      },
-      {
-        source: "/en/cookies",
-        destination: "/cookies",
         permanent: true
       }
     ];
