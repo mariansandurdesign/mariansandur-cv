@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import { defaultLocale, isLocale, siteUrl } from "../seo";
+import { defaultLocale, isLocale, locales, siteUrl } from "../seo";
 import "../globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -44,6 +44,10 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest"
 };
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function LocaleLayout({
   children,

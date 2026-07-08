@@ -69,6 +69,11 @@ type Copy = {
   skillsLeadSuffix: string;
   skillGroups: SkillGroup[];
   contactHeadline: React.ReactNode;
+  legal: {
+    notice: string;
+    privacyLabel: string;
+    cookiesLabel: string;
+  };
   copyright: string;
 };
 
@@ -239,6 +244,11 @@ const copy: Record<Locale, Copy> = {
         qualcosa.
       </>
     ),
+    legal: {
+      notice: "Nessun tracking: questo sito non usa analytics, advertising cookie o profilazione.",
+      privacyLabel: "Privacy Policy",
+      cookiesLabel: "Cookie Policy"
+    },
     copyright: "© 2026 Marian Sandur - Torino, IT"
   },
   en: {
@@ -369,6 +379,11 @@ const copy: Record<Locale, Copy> = {
         something.
       </>
     ),
+    legal: {
+      notice: "No tracking: this site does not use analytics, advertising cookies or profiling.",
+      privacyLabel: "Privacy Policy",
+      cookiesLabel: "Cookie Policy"
+    },
     copyright: "© 2026 Marian Sandur - Torino, IT"
   }
 };
@@ -605,6 +620,13 @@ export default async function LocalizedHome({
             <a href={`mailto:${profile.email}`} aria-label="Email">
               <MailIcon />
             </a>
+          </div>
+          <div className="privacy-note">
+            <p>{pageCopy.legal.notice}</p>
+            <div className="legal-links">
+              <a href={`/${locale}/privacy`}>{pageCopy.legal.privacyLabel}</a>
+              <a href={`/${locale}/cookies`}>{pageCopy.legal.cookiesLabel}</a>
+            </div>
           </div>
           <p className="mono copyright">{pageCopy.copyright}</p>
         </section>
