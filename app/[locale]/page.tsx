@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TopNav } from "../components/TopNav";
+import { absoluteUrl, isLocale, locales, profile, seoKeywords, type Locale } from "../seo";
 
 export const dynamic = "force-static";
-
-const locales = ["it", "en"] as const;
-type Locale = (typeof locales)[number];
 
 type WorkItem = {
   company: string;
@@ -72,13 +70,6 @@ type Copy = {
   skillGroups: SkillGroup[];
   contactHeadline: React.ReactNode;
   copyright: string;
-};
-
-const profile = {
-  name: "Marian Sandur",
-  email: "mariansandurdesign@protonmail.com",
-  location: "Torino, IT",
-  linkedin: "https://www.linkedin.com/in/marian-sandur-74853718a"
 };
 
 const sharedSkillGroups: SkillGroup[] = [
@@ -393,22 +384,59 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const pageCopy = isLocale(locale) ? copy[locale] : copy.it;
+  const canonical = `/${pageCopy.locale}`;
+  const image = {
+    url: profile.image,
+    width: 512,
+    height: 512,
+    alt: `${profile.name} logo`
+  };
 
   return {
     title: pageCopy.metaTitle,
     description: pageCopy.metaDescription,
+    applicationName: "Marian Sandur CV",
+    authors: [{ name: profile.name, url: profile.linkedin }],
+    creator: profile.name,
+    publisher: profile.name,
+    category: "portfolio",
+    keywords: seoKeywords,
     alternates: {
-      canonical: `/${pageCopy.locale}`,
+      canonical,
       languages: {
         it: "/it",
-        en: "/en"
+        en: "/en",
+        "x-default": "/it"
+      }
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1
       }
     },
     openGraph: {
       title: pageCopy.metaTitle,
       description: pageCopy.metaDescription,
       type: "profile",
-      locale: pageCopy.locale === "it" ? "it_IT" : "en_US"
+      locale: pageCopy.locale === "it" ? "it_IT" : "en_US",
+      alternateLocale: pageCopy.locale === "it" ? "en_US" : "it_IT",
+      url: canonical,
+      siteName: "Marian Sandur CV",
+      images: [image],
+      firstName: profile.givenName,
+      lastName: profile.familyName
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageCopy.metaTitle,
+      description: pageCopy.metaDescription,
+      images: [profile.image]
     }
   };
 }
@@ -426,9 +454,16 @@ export default async function LocalizedHome({
 
   const pageCopy = copy[locale];
   const alternateLocale = locale === "it" ? "en" : "it";
+  const structuredData = createStructuredData(locale, pageCopy);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c")
+        }}
+      />
       <a className="skip-link" href="#n-about">
         {pageCopy.skip}
       </a>
@@ -578,8 +613,80 @@ export default async function LocalizedHome({
   );
 }
 
-function isLocale(value: string): value is Locale {
-  return locales.includes(value as Locale);
+function createStructuredData(locale: Locale, pageCopy: Copy) {
+  const pageUrl = absoluteUrl(`/${locale}`);
+  const allSkills = Array.from(new Set(sharedSkillGroups.flatMap((group) => group.skills)));
+  const currentWorksFor = [
+    {
+      "@type": "Organization",
+      name: "Blu Pantheon"
+    },
+    {
+      "@type": "Organization",
+      name: "Surge-X"
+    },
+    {
+      "@type": "Organization",
+      name: "Blu.it Srl"
+    }
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${pageUrl}#person`,
+        name: profile.name,
+        givenName: profile.givenName,
+        familyName: profile.familyName,
+        email: `mailto:${profile.email}`,
+        image: absoluteUrl(profile.image),
+        url: pageUrl,
+        sameAs: [profile.linkedin],
+        jobTitle: ["Frontend Engineer", "AI Engineer"],
+        worksFor: currentWorksFor,
+        alumniOf: {
+          "@type": "CollegeOrUniversity",
+          name: pageCopy.education.school
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: profile.city,
+          addressCountry: profile.country
+        },
+        knowsAbout: allSkills
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${pageUrl}#profile-page`,
+        url: pageUrl,
+        name: pageCopy.metaTitle,
+        description: pageCopy.metaDescription,
+        inLanguage: locale,
+        dateModified: "2026-07-08",
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: absoluteUrl(profile.image),
+          width: 512,
+          height: 512
+        },
+        mainEntity: {
+          "@id": `${pageUrl}#person`
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${absoluteUrl("/")}#website`,
+        url: absoluteUrl("/"),
+        name: "Marian Sandur CV",
+        inLanguage: ["it", "en"],
+        publisher: {
+          "@id": `${pageUrl}#person`
+        }
+      }
+    ]
+  };
 }
 
 function SectionShell({

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import "./globals.css";
+import { defaultLocale, isLocale, siteUrl } from "../seo";
+import "../globals.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mariansandur-cv.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Marian Sandur - Frontend Engineer",
     template: "%s"
@@ -44,13 +45,18 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest"
 };
 
-export default function RootLayout({
-  children
+export default async function LocaleLayout({
+  children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+  const lang = isLocale(locale) ? locale : defaultLocale;
+
   return (
-    <html lang="it" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html lang={lang} className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );

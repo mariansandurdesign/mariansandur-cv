@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "./seo";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -6,8 +7,11 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "MS CV",
     description:
       "Marian Sandur's CV - frontend engineer building fast, accessible web experiences and AI-powered interfaces.",
-    start_url: "/",
+    id: siteUrl,
+    start_url: "/it",
     scope: "/",
+    lang: "it",
+    dir: "ltr",
     display: "standalone",
     background_color: "#0b0b0c",
     theme_color: "#0b0b0c",
